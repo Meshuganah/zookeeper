@@ -70,6 +70,7 @@ app.get('/api/animals/:id', (req, res) => {
       }
   });
 
+<<<<<<< HEAD
 //Handles users POSTing new information to the database
 app.post('./api/animals', (req, res) =>{
     // req.body is where our incoming content will be
@@ -77,6 +78,8 @@ app.post('./api/animals', (req, res) =>{
     res.json(req.body);
 });
 
+=======
+>>>>>>> feature/mvp
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
 });
