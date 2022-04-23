@@ -4,9 +4,10 @@ const app = express();
 
 const { animals } = require('./data/animals');
 
+//Handles the user query 
 function filterByQuery(query, animalsArray) {
     let personalityTraitsArray =[];
-    //Note that we save the animalsArrray as filteredResults here:
+    //Note that we save the animalsArray as filteredResults here:
     let filteredResults = animalsArray;
     if (query.personalityTraits) {
         //Save personalityTraits as a dedicated Array
@@ -43,6 +44,13 @@ function filterByQuery(query, animalsArray) {
     return filteredResults;
 }
 
+//Handles the user param by id search
+function findById(id, animalsArray) {
+    const result = animalsArray.filter(animal => animal.id === id)[0];
+    return result;
+  }
+
+//Used to filter multiple animals by user query
 app.get('/api/animals', (req, res) => {
     let results = animals;
     
@@ -51,6 +59,16 @@ app.get('/api/animals', (req, res) => {
     }
     res.json(results);
 });
+
+//Used to filter 1 specific animal based on ID
+app.get('/api/animals/:id', (req, res) => {
+    const result = findById(req.params.id, animals);
+      if (result) {
+        res.json(result);
+      } else {
+          res.send(404);
+      }
+  });
 
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
